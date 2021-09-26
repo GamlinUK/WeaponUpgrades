@@ -8,14 +8,17 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.ShapedRecipe;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.plugin.java.JavaPlugin;
+import org.bstats.bukkit.Metrics;
 
 public final class WeaponUpgrades extends JavaPlugin {
 
     @Override
     public void onEnable() {
-        // Plugin startup logic
 
-        System.out.println("Weapon Upgrades has finished loading.");
+        int pluginId = 12886;
+        Metrics metrics = new Metrics(this, pluginId);
+
+        getLogger().info("Weapon Upgrades registering recipes.");
 
 
         /*
@@ -64,7 +67,7 @@ public final class WeaponUpgrades extends JavaPlugin {
 
         // Netherite sword Recipe
         ItemStack netheriteSword = new ItemStack(Material.NETHERITE_SWORD);
-        NamespacedKey keyNetheriteSword= new NamespacedKey(this, "wu_netherite_sword");
+        NamespacedKey keyNetheriteSword = new NamespacedKey(this, "wu_netherite_sword");
         ShapedRecipe recipeNetheriteSword = new ShapedRecipe(keyNetheriteSword, netheriteSword);
         recipeNetheriteSword.shape("DD", "DD");
         recipeNetheriteSword.setIngredient('D', Material.DIAMOND_SWORD);
@@ -123,12 +126,30 @@ public final class WeaponUpgrades extends JavaPlugin {
         recipeNetheriteAxe.setIngredient('D', Material.DIAMOND_AXE);
         Bukkit.addRecipe(recipeNetheriteAxe);
 
+
+        /*
+            Bow recipes
+         */
+
+        // Power 1
+        ItemStack bow = new ItemStack(Material.BOW);
+        ItemMeta bowMeta = bow.getItemMeta();
+        bowMeta.setDisplayName("§aTier 1 Bow");
+        bow.setItemMeta(bowMeta);
+        bow.addEnchantment(Enchantment.ARROW_DAMAGE, 1);
+        NamespacedKey keyTier1Bow = new NamespacedKey(this, "wu_tier1_bow");
+        ShapedRecipe recipeTier1Bow = new ShapedRecipe(keyTier1Bow, bow);
+        recipeTier1Bow.shape("BD");
+        recipeTier1Bow.setIngredient('B', Material.BOW);
+        recipeTier1Bow.setIngredient('D', Material.DIAMOND);
+        Bukkit.addRecipe(recipeTier1Bow);
+
+        getLogger().info("Weapon Upgrades has finished loading.");
     }
 
     @Override
     public void onDisable() {
         // Plugin shutdown logic
-
-        System.out.println("Weapon Upgrades has unloaded - good bye!");
+        getLogger().info("Weapon Upgrades has unloaded - good bye!");
     }
 }
