@@ -1,0 +1,7 @@
+name: WeaponUpgrades
+version: '${project.version}'
+main: xyz.gamlin.weaponupgrades.WeaponUpgrades
+api-version: 1.17
+authors: [ Gamlin ]
+description: Upgrade your weapons through crafting!
+website: https://gamlin.xyz
